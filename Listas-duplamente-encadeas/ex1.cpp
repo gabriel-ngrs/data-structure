@@ -129,5 +129,50 @@ class ListaDuplamenteEncadeada {
                 i++;
             }
         }
-
 };
+
+int main() {
+    ListaDuplamenteEncadeada lista;
+    int opcao, valor;
+
+    do {
+        cout << "\n====== MENU ======" << endl;
+        cout << "1. Inserir no inicio" << endl;
+        cout << "2. Inserir no final" << endl;
+        cout << "3. Remover elemento" << endl;
+        cout << "4. Exibir lista" << endl;
+        cout << "0. Sair" << endl;
+        cout << "Escolha uma opcao: ";
+        cin >> opcao;
+
+        switch (opcao) {
+            case 1:
+                cout << "Digite o valor a ser inserido no inicio: ";
+                cin >> valor;
+                lista.inserir_inicio(valor);
+                break;
+            case 2:
+                cout << "Digite o valor a ser inserido no final: ";
+                cin >> valor;
+                lista.inserir_final(valor);
+                break;
+            case 3:
+                cout << "Digite o valor a ser removido: ";
+                cin >> valor;
+                lista.remover_valor(valor);
+                break;
+            case 4:
+                cout << "\n=== Conteudo da lista ===" << endl;
+                lista.exibir_lista();
+                break;
+            case 0:
+                cout << "Encerrando o programa..." << endl;
+                break;
+            default:
+                cout << "Opcao invalida. Tente novamente." << endl;
+        }
+
+    } while (opcao != 0);
+
+    return 0;
+}
