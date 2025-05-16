@@ -19,12 +19,14 @@ class ListaDuplamenteEncadeada {
         }
 
         ~ListaDuplamenteEncadeada(){
-            No* temp; // Criando um no temporario
-            while (temp->proximo != nullptr) {  // Iterando por cada no e deletando o mesmo
-                temp = inicio;
-                inicio = inicio->proximo;
-                delete temp;
+            No* temp = inicio; // Criando um no temporario
+            while (temp != nullptr) {  // Iterando por cada no e deletando o mesmo
+                No* prox = temp->proximo; // Guarda o proximo no
+                delete temp;  // Libera memoria
+                temp = prox;  // Avança para o proximo no
             }
+            inicio = nullptr;
+            fim = nullptr;
             cout << "Memoria liberada com sucesso!" << endl;
         }
 
@@ -67,4 +69,65 @@ class ListaDuplamenteEncadeada {
             fim = novo;  // O fim agora e o novo no
             cout << "Elemento inserido com sucesso." << endl;
         }
+
+        void remover_valor(int valor) {
+            No* temp=inicio;
+
+            while (temp != nullptr) {
+
+                if(temp->dado == valor) {  // Iterando sobre a lista ate encontar o valor
+
+                    if(inicio == fim) {  // Verificando se é o unico elemento da lista
+                        delete temp;
+                        inicio = nullptr;
+                        fim = nullptr;
+                        cout << "Elemento removido, era o unico na lista." << endl;
+                        return;
+                    }
+
+                    if (temp == inicio) {  // Verificando se é o primeiro item da lista
+                        No* aux;
+                        aux = temp->proximo;
+                        aux->anterior = nullptr;
+                        inicio = aux;
+                        delete temp;  // Liberando memoria
+                        cout << "Elemento removido, era o primeiro da lista" << endl;
+                        return;
+                    }
+                    
+                    if (temp == fim) { // Verificando se é o ultimo item da lista
+                        No* aux;
+                        aux = temp->anterior;
+                        aux->proximo = nullptr;
+                        fim = aux;
+                        delete temp;  // Liberando memoria
+                        cout << "Elemento removido, era o ultimo da lista" << endl;
+                        return;
+                    }
+
+                    No* aux1;
+                    No* aux2;
+                    aux1 = temp->anterior;
+                    aux1->proximo = temp->proximo;
+                    aux2 = temp->proximo;
+                    aux2->anterior = temp->anterior;
+                    cout << "Elemento removido, estava no meio da lista" << endl;
+                    delete temp;
+                    return;
+                }
+                temp = temp->proximo;  // Avança para o proximo No
+            }
+            cout << "Elemento nao encontrado na lista." << endl;   
+        }
+
+        void exibir_lista() {
+            No* temp = inicio;
+            int i = 1;
+            while (temp != nullptr) {
+                cout << "No " << i << " = " << temp->dado << endl;
+                temp = temp->proximo;
+                i++;
+            }
+        }
+
 };
